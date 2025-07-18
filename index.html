@@ -18,10 +18,42 @@
     }
 
     header {
-      background: #a9d286;
+      position: relative;
+      height: 450px; /* enough to show logo + background */
       color: white;
       padding: 2rem;
       text-align: center;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Background carousel container */
+    .header-bg-carousel {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      z-index: 0;
+      filter: brightness(0.6); /* darken for better contrast */
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      height: 400px;
+      width: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
     }
 
     nav {
@@ -43,7 +75,7 @@
     }
 
     nav a:hover {
-      color: #ffd700;
+      color: #3e7b31;
     }
 
     .hero {
@@ -127,14 +159,18 @@
 <body>
 
   <header>
-    <h1>Avangard Mebel</h1>
-    <p>Welcome to our official site!</p>
+    <div class="header-bg-carousel"></div>
+
+    <div class="header-content">
+      <img src="images/Avangard_Mebel__1.png" alt="Avangard Logo" class="logo">
+      <p>Rəsmi səhifəmizə xoş gəlmisiniz!</p>
+    </div>
   </header>
 
   <nav>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
+    <a href="#about">Haqqımızda</a>
+    <a href="#services">Servislər</a>
+    <a href="#contact">Əlaqə</a>
   </nav>
 
   <div class="hero">
@@ -142,14 +178,14 @@
   </div>
 
   <section id="about">
-    <h2>About Us</h2>
+    <h2>Haqqımızda</h2>
     <p>
       We are a leading company in [your field] with years of experience. Our team of professionals ensures top-notch quality and customer satisfaction.
     </p>
   </section>
 
   <section id="services">
-    <h2>Our Services</h2>
+    <h2>Servislərimiz</h2>
     <div class="services">
       <div class="service-box">
         <h3>Web Design</h3>
@@ -167,13 +203,13 @@
   </section>
 
   <section id="contact">
-    <h2>Contact Us</h2>
+    <h2>Bizimlə əlaqə saxlayın</h2>
     <div class="contact-form">
       <form id="contactForm">
-        <input type="text" placeholder="Your Name" required />
-        <input type="email" placeholder="Your Email" required />
-        <textarea rows="5" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
+        <input type="text" placeholder="Adınız" required />
+        <input type="email" placeholder="Emailiniz" required />
+        <textarea rows="5" placeholder="Şərhiniz" required></textarea>
+        <button type="submit">Göndərin</button>
       </form>
     </div>
   </section>
@@ -183,7 +219,26 @@
   </footer>
 
   <script>
-    // Smooth scroll is handled by CSS: scroll-behavior: smooth
+    // Background images array - replace with your actual images
+    const images = [
+      'images/bg1.jpg',
+      'images/bg2.jpg',
+      'images/bg3.jpg'
+    ];
+
+    let currentIndex = 0;
+    const bgCarousel = document.querySelector('.header-bg-carousel');
+
+    function changeBackground() {
+      bgCarousel.style.backgroundImage = `url('${images[currentIndex]}')`;
+      currentIndex = (currentIndex + 1) % images.length;
+    }
+
+    // Initial background
+    changeBackground();
+
+    // Change background every 4 seconds
+    setInterval(changeBackground, 4000);
 
     // Contact form submission popup
     const form = document.getElementById('contactForm');
